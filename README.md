@@ -8,3 +8,9 @@ Fake News Detector using LSTM
 
 Project 3.
 Named Entity Recognition using LSTMs with Keras
+
+Project 4.
+Traffic Sign Classification Using Deep Learning in Python:Keras
+
+Project 5.
+Used Cars Price Prediction using XGBoost
