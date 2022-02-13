@@ -10,10 +10,10 @@ Project 3.
 Fake News Detector using LSTM
 
 Project 4.
-Named Entity Recognition using LSTMs with Keras
+Generate Synthetic Images with DCGANs in Keras
 
 Project 5.
 Sentiment Analysis with Deep Learning using BERT
 
 Project 6.
-Generate Synthetic Images with DCGANs in Keras
+Named Entity Recognition using LSTMs with Keras
