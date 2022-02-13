@@ -1,19 +1,19 @@
 Machine Learning/Deep Learning Projects for Machine Learning Engineering
 
 Project 1.
-Sentiment Analysis with Deep Learning using BERT
+Used Cars Price Prediction using XGBoost
 
 Project 2.
-Fake News Detector using LSTM
+Traffic Sign Classification Using Deep Learning in Python:Keras
 
 Project 3.
 Named Entity Recognition using LSTMs with Keras
 
 Project 4.
-Traffic Sign Classification Using Deep Learning in Python:Keras
+Fake News Detector using LSTM
 
 Project 5.
-Used Cars Price Prediction using XGBoost
+Sentiment Analysis with Deep Learning using BERT
 
 Project 6.
 Generate Synthetic Images with DCGANs in Keras
