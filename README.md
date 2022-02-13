@@ -14,3 +14,6 @@ Traffic Sign Classification Using Deep Learning in Python:Keras
 
 Project 5.
 Used Cars Price Prediction using XGBoost
+
+Project 6.
+Generate Synthetic Images with DCGANs in Keras
