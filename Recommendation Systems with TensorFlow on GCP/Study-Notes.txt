@@ -1,0 +1,96 @@
+Different Types of recommendation systems
+
+1. Content-based filtering uses item features to recommand new items similar to what the user has liked in the past.
+	- Impossible to extrapolate unseen items.
+
+2. Collaborative filtering uses similarities between users and items simultaneously to determine recommandations.
+	- Similar users will like similar items.
+	- They can recommend an item to user A based only the iterests of a similar user B.
+
+3. Knowledge-based reommender systems use explicit knowledge about the users, items, and recommandation criteria.
+	- Knowledge-based systems will often explicitly ask users for their preferences, and then use that information to begin making recommendations.
+
+4. Deep neural networks can be trained to predict ratings based on user and item attributes.
+
+
+
+Scenarios
+
+- If a user has already rated a large number of items, perhaps we can rely on 1 method.
+- If a user has rated only a few items, we may instead prefer to use 2.
+- If we have no info about user's previous item interactions or we like any info about a ginve users, we may instead want to rely on 3.
+
+
+
+Recommendation system pitfalls
+
+1. The user space and product space are *sparse*:
+- Most items are rated by very few users.
+- Most users rate only a small fraction of items.
+
+2. The user space and product space are *skewed*:
+- Some properties are very popular.
+- Some users are very prolific.
+
+3. The cold start problem occurs when there aren't enough interactions for users or items.
+
+4. Explicit user feedback is often rare or unobservable.
+
+5. Implicit feedback is much more readily available - # of clicks, play counts, fraction of video watched, ...
+
+Note that, with enough data, you can train an initial model that uses implicit user feedbacks to learn an explicit rating.
+
+
+
+Content-Based Recommendation Systems
+
+Content-based filtering uses item features to recommend new items that are similar to what the user has liked in the past. Not depend on other users' interactions.
+
+An *embedding* is a map from our collection of items to some finite dimensional vector space.
+
+A *similarity measure* is a metric for items in an embedding space.
+	- dot product, cosine similarity measure
+
+
+
+Approach 1. Simple vecotr-based model
+
+user-item rating matrix -> rating_{i,j} for the i^th user for the j^th movie.
+item-feature matrix -> featuer_{i,j} (yes or no) for i^th movie for the j^th feature.
+
+User-feature vector = User's ratings per movie * features per movie (watched)
+
+User-feature vector * features per movie (new) => recommend by the highest similarity measures
+
+
+
+Approach 2. Using neural networks for content-based recommendation systems
+
+
+	f(user features, movie features) -> (regressor) star rating
+
+	f(user features, movie features) -> (classification) movie id
+
+	user features include age, location, language, gender, ...
+
+	movie features include genre, duration, director, MPAA rating, awards, ...
+
+
+
+Approach 3. ALS, a matrix factorization algorithm for collaborative filtering
+
+The factorization splits user-item matrix into row factors and column factors that are essentially user and item embeddings.
+
+A ~= U * V^T
+Very large = Much smaller U and V^T the concept is just like PCA or SVD.
+
+10K movies by 50M users = 500B interaction pairs
+with the help of embedding
+k (users + movies) where k is number of features
+
+
+Alternating least squares (ALS)
+	- Least Square Only
+	- Parellel
+	- Faster
+	- Easy to handle unobserved interaction pairs
