@@ -4,3 +4,5 @@ Traffic-Sign-Classification-Using-Deep-Learning-in-Python:Keras/test.p
 Traffic-Sign-Classification-Using-Deep-Learning-in-Python:Keras/train.p
 Traffic-Sign-Classification-Using-Deep-Learning-in-Python:Keras/valid.p
 Sentiment-Analysis-with-Deep-Learning-using-BERT/finetuned_bert_epoch_1_gpu_trained.model
+
+*/.ipynb_checkpoints/
