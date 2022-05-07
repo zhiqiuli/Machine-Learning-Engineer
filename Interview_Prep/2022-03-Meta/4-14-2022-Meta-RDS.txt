@@ -1,0 +1,117 @@
+def say_hello():
+    print('Hello, World')
+
+for i in range(5):
+    say_hello()
+
+########
+There are two data sets: user_network_requests and user_country. In the first table, userid and timestamp* associated with the network request, which data center the network request was sent to, and whether the request was a success or not (success indicated by 1, failure by 0). In the second table, we have the mapping of userid and country for users who made at least one request. user_network_requests and user_country may be tables in a database or dataframes, depending on your chosen language.
+user_network_requests
+| userid   | timestamp   | data_center | success |
+--------------------------------------------------
+| 10023432 | 15000523759 | A           | 1       | US
+| 10023432 | 15000523987 | B           | 1       | US
+| 10022353 | 15000523213 | A           | 0       | IT
+| ...      | ...         | ...         | ...     |
+user_country
+| userid   | country |
+----------------------
+| 10023432 | US      |
+| 10022353 | IT      |
+| ...      | ...     |
+
+Q. For each data center, compute the fraction of requests that failed.
+group1 = user_network_requests.groupby('data_center').count()['success']
+group2 = user_network_requests.groupby('data_center').sum()['success']
+
+(group1 - group2)/group1
+
+Q. For each country, count the number of users who have never had a request fail. 
+
+df = pd.merge(user_network_requests, user_country, on='userid', how='left')
+
+users_with_fail = df[df['success'] == 0]['userid'].unique() // 10022353
+
+df = df[~df['userid'].isin(users_with_fail)]
+| 10023432 | 15000523759 | A           | 1       | US
+| 10023432 | 15000523987 | B           | 1       | US
+
+
+df.groupby('country').nunique()['userid']
+US 1
+IT 0
+
+
+
+##############
+
+
+You have two files.
+(a) a sentences file with one sentence per line. For example:
+
+The dog jumped over the fence
+The dog ate my homework
+Varun enjoys coding
+My friend is named Yong
+
+etc.
+
+(b) A names file with one name per line, with no duplicates, for example
+
+jeff
+Varun
+dog
+
+etc.
+
+
+Write a function name_count(sentences_file, names_file) that prints out for each distinct name in the names file the number of times it appears in the sentences_file. Treat names as case-insensitive: for example, "Varun" and "varun" are treated same way.
+
+####
+
+# N is the num of words in names_file
+# M is the num of words in sentences_file
+
+def name_count(sentences_file, names_file):
+
+    word_count = {}
+    # O(N)
+    with open(names_file, 'r') as file:
+        for word in file.readlines():
+            word_count[word.lower()] = 0
+    
+    # word_count = {'jeff':0, 'varun':0}
+
+    # O(M)
+    with open(sentences_file, 'r') as file:
+        for line in file.readlines():
+            for word in line.split(' '):
+                if word.lower() in word_count:
+                    word_count[word.lower()] += 1
+    
+    print(word_count)
+
+    return
+
+
+
+#########
+Let’s say that we have a dataset from a credit card company with columns and example rows shown below:  
+userid | timestamp           | description   |  amount | balance | distance_from_home | fraudulent                     
+------------------------------------------------------------------------------------------------------------
+112    | 2020-01-20 13:46:12 | 'LYFT RIDE'   | $20.14  | $620.13 | 3.52               | 'no'
+112    | 2020-01-20 12:25:12 | 'NOPA lunch'  | $35.12  | $599.99 | 3.54               | 'no'
+...
+
+Q. We’d like to predict fraudulent transactions from amount and distance_from_home. What algorithm would you use?
+
+Q. Let’s say the coefficient on amount is 0.10 (standard error = 0.02). 
+
+
+predicted_prob | fraudulent
+----------------------------
+0.1            | 0
+0.3            | 0
+0.6            | 1
+0.8            | 0
+0.9            | 1
