@@ -108,6 +108,8 @@ Q. We’d like to predict fraudulent transactions from amount and distance_from_
 Q. Let’s say the coefficient on amount is 0.10 (standard error = 0.02). 
 
 
+Q.
+
 predicted_prob | fraudulent
 ----------------------------
 0.1            | 0
@@ -115,3 +117,45 @@ predicted_prob | fraudulent
 0.6            | 1
 0.8            | 0
 0.9            | 1
+
+A.
+
+If we use 0.5 as the threshold
+
+predicted_prob | fraudulent | predicted_fraud
+---------------------------------------------
+0.1            | 0          | 0
+0.3            | 0          | 0
+---------------------------------------------
+0.6            | 1          | 1
+0.8            | 0          | 1
+0.9            | 1          | 1
+
+        predicted +  predicted -
+real +       2           0
+real -       1           2
+
+
+Precision = TP / (Predicted +) = 2 / 3
+Recall    = TP / (Real +)      = 2 / 2 = 1
+
+
+
+If we use 0.7 as the threshold
+
+predicted_prob | fraudulent | predicted_fraud
+---------------------------------------------
+0.1            | 0          | 0
+0.3            | 0          | 0
+0.6            | 1          | 0
+---------------------------------------------
+0.8            | 0          | 1
+0.9            | 1          | 1
+
+        predicted +  predicted -
+real +       1           1
+real -       1           2
+
+Precision = TP / (Predicted +) = 1 / 2
+Recall    = TP / (Real +)      = 1 / 2
+
