@@ -4,3 +4,4 @@ __pycache__/
 *.p
 */zzz/
 ~$*.docx
+.DS_Store
