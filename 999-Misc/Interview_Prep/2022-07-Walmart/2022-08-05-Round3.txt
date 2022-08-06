@@ -1,0 +1,45 @@
+
+# base_array = [1, 2, 3, 4, 6, 7, 8, 9, ....94,95,96,97, 98, 99, 100, 102]
+# ugly_array = [102, 99, 98, 87]
+# starting from the last element in base_array, find the 3/k sub-arrays with 3/l consecutive elements with the largest possible numbers. 
+# those elements cannot be in ugly_array. 
+# it is guaranteed that the solution exists
+
+#base_array = [1, 2, 3, 4, 6, 7, 8, 9, 94, 95, 96,97, 98, 99, 100, 102]
+#ugly_array = [102, 99, 98, 87]
+
+base_array = [1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17,18,20,21]
+ugly_array = [14,10,4]
+
+base_array = [1, 1, ,1 , 0, ... ]
+ugly_array = [0, 0, ...]
+
+# N           M         K  L
+def find_elements(base_array, ugly_array, K, L):
+
+    N = len(base_array)
+    cur = []
+    res = []
+    for i in range(N - 1, -1, -1): # O(N)
+        
+        if base_array[i] in ugly_array: # O(1)
+            cur = []
+            continue
+        
+        if len(cur) == 0:
+            cur.append(base_array[i])
+            continue
+        
+        if cur[-1] - base_array[i] == 1:
+            cur.append(base_array[i])
+            if len(cur) == L:
+                res.append(cur[:]) # O(L)
+                if len(res) == K:
+                    return res
+                cur = []
+        else:
+            cur = [base_array[i]]
+            
+    return res
+
+print(find_elements(base_array, ugly_array, 3, 3))

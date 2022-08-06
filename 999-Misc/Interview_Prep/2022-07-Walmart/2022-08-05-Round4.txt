@@ -1,0 +1,29 @@
+table: orders 
+ord_no      order_amt   ord_date    customer_id  salesman_id
+----------  ----------  ----------  -----------  -----------
+70001       150.5       2012-10-05  3005         5002
+70009       270.65      2012-09-10  3001         5005
+70002       65.26       2012-10-05  3002         5001
+70004       110.5       2012-08-17  3009         5003
+
+table: customer
+customer_id |   cust_name    |    city    | grade | salesman_id 
+-------------+----------------+------------+-------+-------------
+       3002 | Nick Rimando   | New York   |   100 |        5001
+       3007 | Brad Davis     | New York   |   200 |        5001
+       3005 | Graham Zusi    | California |   200 |        5002
+       3008 | Julian Green   | London     |   300 |        5002
+       3004 | Fabian Johnson | Paris      |   300 |        5006
+       
+-- get the average order amount for each city 
+
+with tmp1 as (
+    select o.ord_no, o.order_amt, c.city
+    from orders o
+    left join customer c
+    on o.customer_id = c.customer_id
+)
+
+select city, (case when count(*) = 0 then 0.0 else sum(order_amt) / count(*) end) as average
+from tmp1
+group by city

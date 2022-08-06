@@ -1,0 +1,77 @@
+Table name: order_table
+ 
+Order_id                 int        --id of order    
+item_id                  int        -- id of item
+item_value           float      --dollar of the item
+item_name           int        --name of item
+item_number.      Int -----number of item ordered
+ 
+Table name: order_value
+ 
+order_id             int        --id of delivery
+order_deliver_time  timestamp  --time order was placed
+
+What is revenue for each order delivered in year 2022?
+order id.  item id item value. item number
+111.       11.      30.         2
+111.       12.      50.         1
+
+with tmp1 as (
+    select ot.order_id, ot.item_id, ot.item_value, ot.item_name, ot.item_number, ov.order_deliver_time,
+       ot.item_value * ot.item_number as order_revenue
+    from order_table ot
+    left join order_value ov---inner join
+    on ot.order_id = ov.order_id
+    where year(ov.order_deliver_time) = '2022')
+
+select order_id, sum(order_revenue)
+from tmp1
+group by order_id
+
+what is the order id only exist in order_table?(Hints, exsit in order_table, but not in order_value table)
+
+select distinct order_id
+from order_table
+where order_id not in (select distinct order_id from order_value)
+
+select distinct order_id
+from order_table;
+
+What is 2nd biggest item value for each order delivered 2022 year?(if even, output all). Output most frequent item in 2nd biggest item value items.
+
+with tmp2 as (
+    select order_id, rank() over(partition by order_id order by item_value desc) as 'rk', item_value
+    from tmp1)
+
+order id.  rk item value
+111.       1.      50.  
+111.       2.      30.  
+
+selct order_id, item_value
+from tmp2
+where rk = 2
+
+
+Strategy 1  --> send an email with coupon $30 off $50
+Strategy 2 --> send an email with another coupon $15 off $30
+
+Metrics----revenue
+1 M- sample  
+how many customer?sample size---
+difference two stragety---2-----3(more sample size)
+power---80%----90%(more sample size)
+alpha----0.05(more sample size)---0.06
+
+random split----T/C
+past historical data
+
+revenue---T/C-----averge revenue 
+ttest----pvalue---0.7-----averge the same
+there no bias between tow groups
+
+50/50
+
+80/20-----0.01-----not reliable---type1 or type2
+
+
+

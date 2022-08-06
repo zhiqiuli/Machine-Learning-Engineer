@@ -1,0 +1,57 @@
+1. linear reg. 
+
+
+linear between inpendent & dependent vars
+
+residuals are independent
+
+residuals follow normal(0, sigma^2)
+
+2.logsitc reg
+
+loss = sum_i / n * ( -
+
+ log(p) - (1 - y) log(1 - p) ) where p is the model predicted
+
+p =  1 / (1 + exp^(a*x + b))
+
+data: 0 ~ 1
+    
+y: binary {0,1}
+
+
+
+adam 
+
+3. tree 
+rf vs gradietn boosting tree 
+
+adaboost vs gradient
+
+
+4. imbalanced data 
+
+ideas to improve model perform
+
+
+Recall = TP / (TP + FN)
+Precision = TP / (TP + FP)
+
+
+pre-recall curve
+roc curve
+
+5. case study
+
+search ads
+cv = convesions/clicks
+adid, date, impressions, clicks, conversions, conv rate (cv)  -> cr in next period
+...0
+....1
+
+1. period
+day vs weeek vs month
+
+week
+
+p =  1 / (1 + exp^(a*x + b))

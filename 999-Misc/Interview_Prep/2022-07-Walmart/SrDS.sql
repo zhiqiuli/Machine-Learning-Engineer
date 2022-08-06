@@ -36,7 +36,7 @@ shelf_id    shelf_name                      top_cp_name
 3659116    Sharpie Fine Point Markers          Arts
 3725194    Color Markers                       Arts
 
-
+    
 Question 1 For each shelf,generate the 8 most similar shelves.no duplicated rank. keep the shelf if it is not in  shelf_info table. Organize the output by shelf_j and rank.
 
 sample  answer
@@ -73,6 +73,31 @@ select shelf_j,
 from tmp2
 order by shelf_j desc, 'rank'
 
+--
+
+with tmp1 as (
+    select ss.shelf_j, ss.shelf_i, ss.similarity, si.shelf_name as shelf_name_j, si.shelf_topcp as shelf_topcp_j
+    from shelf_similarity ss
+    left join shelf_info si
+    on ss.shelf_j = si.shelf_id
+),
+
+tmp2 as (
+    select ss.shelf_j, ss.shelf_i, ss.similarity, shelf_name_j, shelf_topcp_j, si.shelf_name as shelf_name_i, si.shelf_topcp as shelf_topcp_i
+    from tmp2 ss
+    left join shelf_info si
+    on ss.shelf_i = si.shelf_id),
+
+tmp3 as (
+    select shelf_j, shelf_i, similarity,
+    rank() parition over(shelf_j order by similarity desc, shelf_i) as 'rank',
+    shelf_topcp_j, shelf_topcp_i, shelf_name_j, shelf_name_i
+    from tmp2)
+
+select *
+from tmp3
+where 'rank' <= 8
+order by shelf_j, rank, shelf_i
 
 --
 
